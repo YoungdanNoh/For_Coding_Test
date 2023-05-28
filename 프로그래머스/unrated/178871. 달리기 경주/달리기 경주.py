@@ -4,7 +4,7 @@ def solution(players, callings):
     # 배열 swap으로 풀려하면 시간 초과로 실패함
     # HashMap은 특정 데이터에 접근할 때 key로 접근하기 때문에 시간복잡도가 O(1)이다.
     # 배열에서 특정 데이터에 접근할 때의 시간 복잡도는 O(n)이다.
-    # 따라서 callings의 길이가 길수록 실행 시간은 길어진다.
+    # 따라서 배열 자료구조를 사용하면 callings의 길이가 길수록 실행 시간은 길어진다.
     
     dic = {string : i for i, string in enumerate(players)}
     

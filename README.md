@@ -1,6 +1,6 @@
 # Programmers
 
-## [프로그래머스](https://programmers.co.kr/)사이트 문제풀기
+## [프로그래머스](https://programmers.co.kr/) 사이트 문제풀기
 > 백준허브와 연동함
 
 ## 목표

@@ -3,7 +3,7 @@ import sys
 N = int(input())
 A = []
 for i in range(N):
-    temp = int(sys.stdin.readline()) # sys로 입력받지 않으면 런타임 에러남..ㅎ
+    temp = int(sys.stdin.readline())
     A.append((temp, i)) # index, 값 받기
 
 changed = False

@@ -6,7 +6,7 @@ board[0][0] = 1 #처음 위치는 무조건 방문처리
 
 for _ in range(k):
     a, b = map(int, input().split())
-    board[a-1][b-1] = -1 #사과의 위치에 5라는 값을 넣는다.
+    board[a-1][b-1] = -1 #사과의 위치에 -1이라는 값을 넣는다.
 
 l = int(input()) #뱀의 방향 변환 횟수
 X = []

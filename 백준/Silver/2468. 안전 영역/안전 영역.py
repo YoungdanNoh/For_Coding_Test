@@ -27,10 +27,10 @@ def dfs(visited, x, y, m):
             if not visited[tx][ty]:
                 dfs(visited, tx, ty, m)
 
-visited = [[False] * n for _ in range(n)]
 cnt = 0
 area = []
 for m in range(min_, max_ + 1):
+    visited = [[False] * n for _ in range(n)]
     for i in range(n):
         for j in range(n):
             if graph[i][j] > m and not visited[i][j]:
@@ -38,7 +38,6 @@ for m in range(min_, max_ + 1):
                 cnt += 1
     area.append(cnt)
     cnt = 0
-    visited = [[False] * n for _ in range(n)]
 
 if min_ == max_:
     print(1)

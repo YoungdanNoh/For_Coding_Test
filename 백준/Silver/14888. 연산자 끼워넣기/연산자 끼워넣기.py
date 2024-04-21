@@ -1,47 +1,29 @@
-import itertools
-
-N = int(input())
+n = int(input())
 arr_a = list(map(int, input().split()))
 
 # 순서대로 +, -, x, / 의 개수
-op_in = list(map(int,input().split()))
+op = list(map(int,input().split()))
 
-op = []
-for i in range(4):
-    for j in range(op_in[i]):
-        if i == 0:
-            op.append("+")
-        elif i == 1:
-            op.append("-")
-        elif i == 2:
-            op.append("*")
+max_ = -1e10
+min_ = 1e10
+def dfs(cnt, add, minus, mul, div, result):
+    global max_, min_
+    if cnt == n:
+        max_ = max(max_, result)
+        min_ = min(min_, result)
+        return
+    if add:
+        dfs(cnt+1, add-1, minus, mul, div, result + arr_a[cnt])
+    if minus:
+        dfs(cnt+1, add, minus-1, mul, div, result - arr_a[cnt])
+    if mul:
+        dfs(cnt+1, add, minus, mul-1, div, result * arr_a[cnt])
+    if div:
+        if result < 0 and arr_a[cnt] > 0:
+            dfs(cnt + 1, add, minus, mul, div - 1, -((-result) // arr_a[cnt]))
         else:
-            op.append("/")
+            dfs(cnt+1, add, minus, mul, div-1, result // arr_a[cnt])
 
-op = list(set(list(itertools.permutations(op, N-1))))
-
-def cal(op, a, b):
-    if op == "+":
-        return a + b
-    elif op == '-':
-        return a - b
-    elif op == "*":
-        return a * b
-    else:
-        if a < 0:
-            return -((-a) // b)
-        else:
-            return a // b
-
-result = []
-for o in range(len(op)):
-    tmp = 0
-    for i in range(1, N):
-        if i == 1:
-            tmp = cal(op[o][i-1], arr_a[i-1], arr_a[i])
-        else:
-            tmp = cal(op[o][i-1], tmp, arr_a[i])
-    result.append(tmp)
-
-print(max(result))
-print(min(result))
+dfs(1, op[0], op[1], op[2], op[3], arr_a[0])
+print(max_)
+print(min_)

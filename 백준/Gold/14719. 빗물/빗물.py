@@ -16,7 +16,7 @@ flag = False
 
 for i in range(1, w):
     if flag:
-        if temp < b[i-1]:
+        if temp <= b[i-1]:
             # 빗물이 고이는 곳을 체크 후
             # 현재 블럭의 높이보다 이전 단계의 블럭의 높이가 더 크다면
             # 이전 단계의 블럭의 높이와 좌표를 이용한다

@@ -37,12 +37,8 @@ public class Main {
             x2 = Integer.parseInt(st.nextToken());
             y2 = Integer.parseInt(st.nextToken());
 
-            if(x1 == x2 && y1 == y2){
-                System.out.println(0);
-            }else{
-                bfs(arr, x1, y1);
-                System.out.println(arr[x2][y2]);
-            }
+            bfs(arr, x1, y1);
+            System.out.println(arr[x2][y2]);
         }
     }
     public static void bfs(int[][] arr, int x, int y){

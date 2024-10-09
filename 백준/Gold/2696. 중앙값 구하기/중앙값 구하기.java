@@ -11,7 +11,7 @@ public class Main {
         int T = Integer.parseInt(bf.readLine()); // 테스트 케이스의 개수
 
         StringBuilder sb = new StringBuilder();
-        while (T-- > 0) {
+        while (T > 0) {
             int N = Integer.parseInt(bf.readLine()); // 배열의 크기
 
             sb.append(((N + 1) / 2) + "\n"); // 중앙값의 개수 출력
@@ -40,6 +40,8 @@ public class Main {
                     cnt++;
                 }
             }
+
+            T--;
         }
 
         bw.write(sb.toString());

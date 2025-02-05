@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(bf.readLine().trim());
         int[] sang = new int[N];
@@ -33,6 +34,7 @@ public class Main {
                 int mid = (start + end) / 2;
 
                 if(mid < 0 || mid >= N) {
+                    //인덱스 범위를 벗어나므로 건너뛰기(존재하지 않음)
                     break;
                 }
 
@@ -50,7 +52,9 @@ public class Main {
         }
 
         for (int i = 0; i < M; i++) {
-            System.out.print(result[i] + " ");
+            sb.append(result[i]);
+            sb.append(" ");
         }
+        System.out.print(sb);
     }
 }

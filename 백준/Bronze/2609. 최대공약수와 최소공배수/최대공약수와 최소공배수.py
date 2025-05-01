@@ -1,12 +1,15 @@
-a, b = map(int, input().split())
+import sys
 
-arr = []
-for i in range(1, min(a, b) + 1):
-    if (a % i == 0) and (b % i == 0):
-       arr.append(i)
-print(max(arr))
+a, b = map(int, sys.stdin.readline().split())
 
-tmp_a = a // max(arr)
-tmp_b = b // max(arr)
+if(a < b):
+    tmp = a
+    a = b
+    b = tmp
 
-print(tmp_a * tmp_b * max(arr))
+n1, n2 = a, b
+while n2 > 0:
+    n1, n2 = n2, (n1 % n2)
+
+print(n1)
+print(int((a*b)/n1))

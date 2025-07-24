@@ -51,18 +51,6 @@ class Solution {
     static int[] dy = {0, 0, -1, 1};
     
     public String solution(int[] numbers, String hand) {
-        char[][] keypad = new char[4][3];
-        
-        int tmp = 1;
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                keypad[i][j] = (char) tmp++;
-            }
-        }
-        keypad[3][0] = '*';
-        keypad[3][1] = '0';
-        keypad[3][2] = '#';
-        
         int lx = 3; int ly = 0;
         int rx = 3; int ry = 2;
         

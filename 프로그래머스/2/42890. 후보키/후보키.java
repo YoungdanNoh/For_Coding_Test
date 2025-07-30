@@ -4,7 +4,6 @@ class Solution {
     
     static int N;
     static int M;
-    static boolean[] visited;
     static boolean[] isSelected2;
     static boolean[] isSelected;
     static String[][] table;
@@ -50,7 +49,6 @@ class Solution {
             Set<String> s = new HashSet<>();
             
             for(int i=0; i<N; i++){
-                // 현재 부분집합인 애들로 후보키 구성해보기
                 String tmp = "";
                 for(int j=0; j<M; j++){
                     if(isSelected[j]){
@@ -78,7 +76,6 @@ class Solution {
                 for(int i=0; i<M; i++){
                     if(isSelected[i]){
                         tmp2 += i;
-                        visited[i] = true;
                     }
                 }
                 candi.add(tmp2);
@@ -98,7 +95,6 @@ class Solution {
     public int solution(String[][] relation) {
         N = relation.length;
         M = relation[0].length;
-        visited = new boolean[M];
         isSelected = new boolean[M];
         
         table = relation;

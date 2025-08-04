@@ -64,7 +64,7 @@ class Solution {
                 
                 rec.money += m - give;
                 
-                if(rec.next == -1) break;
+                if(rec.next == -1 || give == 0) break;
                 
                 rec = tree[rec.next];
             }

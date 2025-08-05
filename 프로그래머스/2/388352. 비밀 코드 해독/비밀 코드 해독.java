@@ -37,11 +37,6 @@ class Solution {
             }
             if(flag) result++;
             
-            // for(int i=0; i<5; i++){
-            //     System.out.print(choice[i] + " ");
-            // }
-            // System.out.println();
-            
             return;
         }
         

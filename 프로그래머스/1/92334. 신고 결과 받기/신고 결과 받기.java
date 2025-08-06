@@ -46,15 +46,11 @@ class Solution {
             for(int i=0; i<m.get(key).size(); i++){
                 String tmp = m.get(key).get(i); // 신고당한 사람
                 
-                for(String key2: mCnt.keySet()){
-                    if(tmp.equals(key2) && mCnt.get(key2) >= k){
-                        // 신고당한 사람 목록에 있고, 횟수가 k보다 크다면
-                        cnt.put(key, cnt.getOrDefault(key, 0)+1);
-                    }
+                if(mCnt.get(tmp) >= k){
+                    // 신고당한 사람 목록에 있고, 횟수가 k보다 크다면
+                    cnt.put(key, cnt.getOrDefault(key, 0)+1);
                 }
             }
-            
-            
         }
         
         for(int i=0; i<id_list.length; i++){

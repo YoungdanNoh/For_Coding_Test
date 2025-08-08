@@ -54,15 +54,6 @@ class Solution {
             graph[i] = new ArrayList<>();
         }
         
-        Arrays.sort(edges, (a, b) -> {
-            if(a[0] == b[0]){
-                // 같은 레벨이라면
-                return Integer.compare(a[1], b[1]);
-            }else{
-                return Integer.compare(a[0], b[0]);
-            }
-        });
-        
         for(int i=0; i<edges.length; i++){
             int parent = edges[i][0];
             int child = edges[i][1];

@@ -80,15 +80,6 @@ class Solution {
         visited[0] = true;
         dfs(1, 0);
         
-        // for(int i=0; i<graph.length; i++){
-        //     System.out.print(i + ": ");
-        //     for(int j=0; j<graph[i].size(); j++){
-        //         System.out.print(graph[i].get(j).idx + " ");
-        //     }
-        //     System.out.println();
-        // }
-        
-        
         return ans;
     }
 }

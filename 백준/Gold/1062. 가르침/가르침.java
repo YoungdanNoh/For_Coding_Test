@@ -15,7 +15,7 @@ public class Main {
     static int ans = 0;
 
     public static void combi(int cnt, int start){
-        if(cnt <= K){
+        if(cnt == K){
             int read = 0; // 읽을 수 있는 단어의 수
 
             for(int i=0; i<words.length; i++){
@@ -36,6 +36,8 @@ public class Main {
             }
 
             ans = Math.max(ans, read);
+
+            return;
         }
 
         for(int i = start; i < candi.length; i++){
@@ -86,15 +88,21 @@ public class Main {
                 }
             }
 
-            candi = new char[tmp.size()];
-            int idx = 0;
-            for(char c : tmp){
-                candi[idx++] = c;
+            if(tmp.size() <= K){
+                System.out.println(N);
+
+            }else{
+                candi = new char[tmp.size()];
+                int idx = 0;
+                for(char c : tmp){
+                    candi[idx++] = c;
+                }
+
+                combi(0, 0);
+
+                System.out.println(ans);
             }
 
-            combi(0, 0);
-
-            System.out.println(ans);
         }
     }
 }

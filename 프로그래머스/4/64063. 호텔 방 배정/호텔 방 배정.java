@@ -18,8 +18,8 @@ class Solution {
         // x방을 배정받을 수 없다면 next[x]로 점프해서 빈 방 찾기
         long empty = find(next.get(x));
         
-        // 경로 압축: 다음에 x요청이 오면 그 다음 빈 방 탐색
-        next.put(x, empty);
+        // 경로 압축: 다음에 x요청이 오면 그 다음 빈 방부터 탐색
+        next.put(x, empty + 1);
         return empty;
     }
     

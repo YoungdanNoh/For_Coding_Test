@@ -61,10 +61,10 @@ class Solution {
                 // 게이트로 이동하는 경우는 무시
                 if(isGate[next.next]) continue;
                 
-                // 현재 cur까지의 최대 intensity와 그 다음 경로의 intensity를 비교
+                // 다음 노드까지 가는 전체 경로의 intensity를 더 큰 값으로 갱신
                 int newIntensity = Math.max(cur[1], next.cost);
                 if(dist[next.next] > newIntensity){
-                    // 현재 기록된 next 노드까지의 거리보다 더 작은 값으로 이동 가능하다면
+                    // 현재 기록된 next 노드까지의 intensity보다 더 작은 값으로 경로를 만들 수 있다면
                     dist[next.next] = newIntensity;
                     pq.offer(new int[]{next.next, dist[next.next]});
                 }

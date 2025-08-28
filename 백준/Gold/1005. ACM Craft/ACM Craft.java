@@ -52,17 +52,9 @@ public class Main {
                 }
             }
 
-            boolean[] visited = new boolean[N+1];
             int ans = 0;
             while(!pq.isEmpty()) {
                 int[] cur = pq.poll();
-
-                if(visited[cur[1]]) {
-                    // 이미 지은 건물
-                    continue;
-                }
-
-                visited[cur[1]] = true;
 
                 if(cur[1] == W){
                     // 지어야 할 건물을 지음
@@ -71,11 +63,9 @@ public class Main {
                 }
 
                 for(int next : graph[cur[1]]) {
-                    if(!visited[next]) {
-                        indegree[next]--;
-                        if(indegree[next] == 0) {
-                            pq.add(new int[] {cur[0] + time[next], next});
-                        }
+                    indegree[next]--;
+                    if(indegree[next] == 0) {
+                        pq.add(new int[] {cur[0] + time[next], next});
                     }
                 }
             }

@@ -22,8 +22,8 @@ class Solution {
         int[][][] keys = {key, key_90, key_180, key_270};
         
         for (int[][] k : keys) {
-            for (int x = 0; x <= 2 * N; x++) {
-                for (int y = 0; y <= 2 * N; y++) {
+            for (int x = 0; x < 2 * N; x++) {
+                for (int y = 0; y < 2 * N; y++) {
 
                     if (isUnlocked(new_lock, k, x, y)) {
                         return true;

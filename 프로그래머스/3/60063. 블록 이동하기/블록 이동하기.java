@@ -6,16 +6,6 @@ class Robot{
     int time;
     
     public Robot(int x1, int y1, int x2, int y2, int time){
-        
-        if(x1 > x2 || (x1 == x2 && y1 > y2)){
-            // x1, y1에 항상 더 작은 값이 오도록 만들어주기
-            int tx = x1, ty = y1;
-            x1 = x2;
-            y1 = y2;
-            x2 = tx;
-            y2 = ty;
-        }
-        
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;

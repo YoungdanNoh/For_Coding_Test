@@ -22,7 +22,7 @@ class Solution {
         // 초기 코딩력이 목표치보다 높은 경우
         if(cop >= max_cop) cop = max_cop;
         
-        int[][]dp = new int[max_alp+2][max_cop+2];
+        int[][]dp = new int[max_alp+1][max_cop+1];
         for(int i=alp; i<=max_alp; i++) {
             for(int j=cop; j<=max_cop; j++) {
                 dp[i][j] = Integer.MAX_VALUE;
@@ -34,8 +34,13 @@ class Solution {
             for(int j=cop; j<=max_cop; j++) {
                 
                 // 공부하기
-                dp[i+1][j] = Math.min(dp[i+1][j], dp[i][j] + 1);
-                dp[i][j+1] = Math.min(dp[i][j+1], dp[i][j] + 1);
+                if((i+1) <= max_alp){
+                    dp[i+1][j] = Math.min(dp[i+1][j], dp[i][j] + 1);
+                }
+                if((j+1) <= max_cop){
+                    dp[i][j+1] = Math.min(dp[i][j+1], dp[i][j] + 1);
+                }
+                
                 
                 for(int p=0; p<problems.length; p++) {
                     // 현재 알고력과 코딩력이 문제를 해결할 수 있는 경우

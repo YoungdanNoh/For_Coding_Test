@@ -61,7 +61,8 @@ class Solution {
             } else {
                 // 불참이 더 싸지만, 규칙 때문에 필요하면 참석으로 바꿀 후보
                 extra = Math.min(extra, dp[v][1] - dp[v][0]);
-                
+                // sumMin에 이미 dp[v][0] 값이 더해져 있으므로, 추가 비용만 더해주면 됨
+                // 따라서 추가 비용인 dp[v][1] - dp[v][0]를 구함
             }
             
         }

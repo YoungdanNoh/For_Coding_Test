@@ -16,37 +16,6 @@ class Solution {
     static boolean[] visited;
     static int ans = 0;
     
-    public void dfs(int sheep, int wolf){
-        if(sheep <= wolf){
-            return;
-        }else{
-            ans = Math.max(ans, sheep);
-        }
-        
-        for(int i=0; i<graph.length; i++){
-            for(int j=0; j<graph[i].size(); j++){
-                Node child = graph[i].get(j); // 자식 노드
-                
-                if(visited[i] && !visited[child.idx]){
-                    // 부모 방문 && 자식 방문X -> 자식 방문 가능
-                    if(child.sheep){
-                        // 양이라면
-                        visited[child.idx] = true;
-                        dfs(sheep+1, wolf);
-                        visited[child.idx] = false;
-                        
-                    }else{
-                        // 늑대라면
-                        visited[child.idx] = true;
-                        dfs(sheep, wolf+1);
-                        visited[child.idx] = false;
-                        
-                    }
-                }
-            }
-        }
-    }
-    
     public int solution(int[] info, int[][] edges) {
         
         graph = new ArrayList[info.length];
@@ -73,4 +42,41 @@ class Solution {
         
         return ans;
     }
+    
+    public void dfs(int sheep, int wolf){
+        if(sheep <= wolf){
+            //양의 수보다 늑대의 수가 같거나 더 많아지면 바로 모든 양이 잡아먹힘
+            
+            return;
+        }
+        
+        ans = Math.max(ans, sheep);
+        
+        for(int i=0; i<graph.length; i++){
+            for(int j=0; j<graph[i].size(); j++){
+                // 이미 방문한 경로라면 continue
+                if(visited[graph[i].get(j).idx]) continue;
+                
+                // 부모 노드를 방문했다면 현재 경로 탐색 가능
+                if(visited[i]){
+                    if(graph[i].get(j).sheep){
+                        // 양
+                        visited[graph[i].get(j).idx] = true; // 방문하거나
+                        dfs(sheep+1, wolf);
+                        visited[graph[i].get(j).idx] = false; // 안 하거나
+                        
+                    }else{
+                        // 늑대
+                        visited[graph[i].get(j).idx] = true;
+                        dfs(sheep, wolf+1);
+                        visited[graph[i].get(j).idx] = false;
+                        
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
 }

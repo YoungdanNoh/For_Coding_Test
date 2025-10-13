@@ -1,23 +1,24 @@
 def solution(tickets):
     answer = []
     
-    graph = dict()
-    
-    for start, end in tickets:
-        if start in graph:
-            graph[start].append(end)
+    ticket = {}
+    for a, b in tickets:
+        if a in ticket:
+            ticket[a].append(b)
         else:
-            graph[start] = [end]
+            ticket[a] = [b]
     
-    for g in graph:
-        graph[g].sort()
+    for key in ticket:
+        ticket[key].sort()
     
-    def dfs(graph, start):
-        if start in graph:
-            while graph[start]:
-                dfs(graph, graph[start].pop(0))
+    def dfs(ticket, start):
+        # 티켓 정보, 출발지
+        if start in ticket:
+            while ticket[start]:
+                # 현재 티켓으로 갈 수 있는 경로를 모두 가보기
+                dfs(ticket, ticket[start].pop(0))
         answer.append(start)
-            
-    dfs(graph, "ICN")
+    
+    dfs(ticket, "ICN") # ICN에서 출발
     
     return answer[::-1]

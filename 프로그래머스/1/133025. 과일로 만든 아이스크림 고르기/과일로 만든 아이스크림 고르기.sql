@@ -1,6 +1,6 @@
-SELECT FIRST_HALF.FLAVOR
-from FIRST_HALF, ICECREAM_INFO
-where FIRST_HALF.FLAVOR = ICECREAM_INFO.FLAVOR
-and TOTAL_ORDER > 3000
-and INGREDIENT_TYPE = 'fruit_based'
-order by TOTAL_ORDER desc
+select a.FLAVOR
+from FIRST_HALF as a, ICECREAM_INFO as b
+where a.FLAVOR = b.FLAVOR
+and a.TOTAL_ORDER > 3000
+and b.INGREDIENT_TYPE = 'fruit_based'
+order by a.TOTAL_ORDER desc

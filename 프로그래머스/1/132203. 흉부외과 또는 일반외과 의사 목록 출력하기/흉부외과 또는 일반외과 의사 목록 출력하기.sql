@@ -1,4 +1,4 @@
-SELECT DR_NAME, DR_ID, MCDP_CD, DATE_FORMAT(HIRE_YMD, '%Y-%m-%d')
+select dr_name, dr_id, mcdp_cd, DATE_FORMAT(hire_ymd, '%Y-%m-%d') AS hire_date
 from doctor
-where MCDP_CD = 'CS' or MCDP_CD = 'GS'
-order by HIRE_YMD desc, DR_NAME
+where mcdp_cd = "CS" or mcdp_cd = "GS"
+order by hire_date desc, dr_name asc

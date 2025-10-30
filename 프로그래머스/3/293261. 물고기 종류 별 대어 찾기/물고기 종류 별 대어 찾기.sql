@@ -1,10 +1,7 @@
-SELECT ID, FISH_NAME, LENGTH
-FROM FISH_INFO AS A, FISH_NAME_INFO AS B
-WHERE A.FISH_TYPE = B.FISH_TYPE
-AND (A.FISH_TYPE, A.LENGTH) IN
-(
-    SELECT FISH_TYPE, MAX(LENGTH)
-    FROM FISH_INFO
-    GROUP BY FISH_TYPE
-)
-ORDER BY ID
+select ID, FISH_NAME, LENGTH
+from FISH_INFO a, FISH_NAME_INFO b
+where a.FISH_TYPE = b.FISH_TYPE
+and (a.FISH_TYPE, a.LENGTH) IN (select FISH_TYPE, max(LENGTH)
+                               from FISH_INFO
+                               group by FISH_TYPE)
+order by ID

@@ -1,7 +1,7 @@
-SELECT A.ITEM_ID, ITEM_NAME, RARITY
-FROM ITEM_INFO AS A, ITEM_TREE AS B
-WHERE A.ITEM_ID = B.ITEM_ID
-AND A.ITEM_ID NOT IN (SELECT PARENT_ITEM_ID
-                      FROM ITEM_TREE
-                      WHERE PARENT_ITEM_ID IS NOT NULL)
-ORDER BY A.ITEM_ID DESC
+select a.ITEM_ID, ITEM_NAME, RARITY
+from ITEM_INFO a, ITEM_TREE b
+where a.ITEM_ID = b.ITEM_ID
+and a.ITEM_ID not IN (select PARENT_ITEM_ID
+                      from ITEM_TREE
+                      where PARENT_ITEM_ID is not null)
+order by a.ITEM_ID desc

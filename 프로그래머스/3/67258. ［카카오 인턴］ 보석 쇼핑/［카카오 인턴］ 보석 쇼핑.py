@@ -8,29 +8,30 @@ def solution(gems):
         dic[t] = cnt
         cnt += 1
     
-    # 투 포인터 방식
-    totalType = len(typeG)
-    check = defaultdict(int)
-    have = 0
-    left = 0
+    total = len(typeG)
     minLen = 100001
     ans = [100001, 100001]
-
-    for right in range(len(gems)):
-        # 오른쪽 포인터 확장
-        if check[gems[right]] == 0:
-            have += 1
-        check[gems[right]] += 1
-
-        # 모든 종류가 포함된 경우, 왼쪽을 줄이며 최소 구간 찾기
-        while have == totalType:
-            if (right - left + 1) < minLen:
-                minLen = right - left + 1
-                ans = [left + 1, right + 1]  # 1-based index
-
-            check[gems[left]] -= 1
-            if check[gems[left]] == 0:
-                have -= 1
-            left += 1
-
+    
+    start = 0 # 시작 인덱스
+    gcnt = 0 # 현재 가지고 있는 보석 종류의 수
+    visited = defaultdict(int) # 포함한 보석 수 세기
+    
+    for end in range(len(gems)):
+        if visited[gems[end]] == 0:
+            # 현재 가지고 있지 않은 보석이라면 보석 종류 수 +1
+            gcnt += 1
+        visited[gems[end]] += 1
+        
+        while gcnt == total:
+            # 보석 종류를 모두 가진 상태라면 왼쪽을 줄여보기
+            if (end-start+1) < minLen:
+                minLen = end-start+1
+                ans = [start+1, end+1]
+                
+            visited[gems[start]] -= 1
+            if visited[gems[start]] == 0:
+                gcnt -= 1 # 가지고 있는 보석 종류 하나 감소
+            start += 1
+            
+        
     return ans

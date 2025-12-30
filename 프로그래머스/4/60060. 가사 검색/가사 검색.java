@@ -25,7 +25,8 @@ class Trie{
     }
     
     public void insert(String str){
-        Node node = this.root;
+        Node node = this.root; // 루트에는 어떠한 특정 문자를 저장하진 않고, 루트의 노릇만 함.
+        // 따라서 str에서 문자를 소비하지 않으므로 초기에 node.remainCnt에는 str의 길이를 기록하는 것!
         
         bump(node, str.length()); // 루트에 "str길이의 단어 하나 있음"
         

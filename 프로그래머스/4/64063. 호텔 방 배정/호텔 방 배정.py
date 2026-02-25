@@ -1,36 +1,23 @@
-from collections import defaultdict
 import sys
 
 # 재귀 한도 늘리기
 sys.setrecursionlimit(100000)
 
+next = {}
+def find(require):
+    if require not in next:
+        # 해당 방 번호에 배정된 사항 없으므로 해당 방을 배정
+        next[require] = require + 1 # 해당 방 번호를 또 요청한다면 이후로는 require+1번 방부터 배정 가능
+        return require
+    
+    empty = find(next[require]) # 재귀를 돌면서 빈 방 찾기
+    next[require] = empty + 1
+    return empty
+    
+
 def solution(k, room_number):
-    
-    arr = defaultdict()
-    ans = []
-    
-    def find(rn):
-        # rn 다음 방 번호 찾기
-        next_rn = arr[rn]
-        
-        if next_rn not in arr:
-            # 다음 방 번호로 방 배정
-            arr[next_rn] = next_rn+1
-            return next_rn
-        
-        tmp = find(next_rn)
-        arr[rn] = tmp+1
-        return tmp
-            
-        
+    ans = [0 for _ in range(len(room_number))]
     for i in range(len(room_number)):
-        rn = room_number[i]
-        
-        if rn not in arr:
-            ans.append(rn)
-            # 다음에 rn이라는 방 번호를 요청하는 사람이 있다면 rn+1 방을 배정해야 함
-            arr[rn] = rn+1
-        else:
-            ans.append(find(rn))
-        
+        ans[i] = find(room_number[i])
+    
     return ans

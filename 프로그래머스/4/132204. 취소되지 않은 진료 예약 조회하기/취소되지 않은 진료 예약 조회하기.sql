@@ -1,4 +1,4 @@
-with register_patient(APNT_YMD, APNT_NO, PT_NO, MCDP_CD, MDDR_ID, APNT_CNCL_YN, APNT_CNCL_YMD) as(
+with register_patient as(
     select *
     from APPOINTMENT
     where APNT_CNCL_YN = 'N'

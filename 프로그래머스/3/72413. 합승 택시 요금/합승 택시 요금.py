@@ -2,41 +2,41 @@ import heapq
 
 def solution(n, s, a, b, fares):
     
-    graph = [[] for i in range(n+1)]
-    
-    for v, w, cost in fares:
-        graph[v].append((w, cost))
-        graph[w].append((v, cost))
+    graph = [[] for _ in range(n+1)]
+    for c, d, f in fares:
+        graph[c].append((d, f))
+        graph[d].append((c, f))
     
     def dijkstra(start):
         pq = []
+        dist = [1e9]*(n+1) # start에서부터 시작하여 다른 정점까지의 cost를 저장
         visited = [False]*(n+1)
-        dist = [1e9]*(n+1)
         
-        heapq.heappush(pq, (0, start)) # cost, 시작점
         dist[start] = 0
+        heapq.heappush(pq, (0, start))
         
         while pq:
-            cost, now = heapq.heappop(pq)
+            cost, node = heapq.heappop(pq)
             
-            if(visited[now]):
+            if visited[node]:
                 continue
-            visited[now] = True
+            visited[node] = True
             
-            for nn, c in graph[now]:
-                if(dist[nn] > dist[now] + c):
-                    dist[nn] = dist[now] + c
+            for nn, nc in graph[node]:
+                # 현재 노드와 연결된 노드들 탐색
+                if dist[nn] > (dist[node] + nc):
+                    dist[nn] = dist[node] + nc
                     heapq.heappush(pq, (dist[nn], nn))
-                    
+        
         return dist
     
-    dijk = [[0]]
+    tot_dist = [[]] # 각 노드에서 다른 노드까지의 최소거리를 모두 저장한다
     for i in range(1, n+1):
-        dijk.append(dijkstra(i)) # i번 노드에서 시작하여 다른 노드까지의 최소 경로를 구함
-        
-    result = 1e9
+        tot_dist.append(dijkstra(i))
+    
+    ans = 1e9
+    # s -> i / i -> a / i -> b로 가는 경우들 중 최소 비용을 찾는다.
     for i in range(1, n+1):
-        result = min(result, dijk[s][i] + dijk[i][a] + dijk[i][b])
-        # start -> i번 노드를 거치고, 해당 i에서 a와 b로 가는 최소 경로를 모두 구해봄
-        
-    return result
+        ans = min(ans, tot_dist[s][i] + tot_dist[i][a] + tot_dist[i][b])
+            
+    return ans

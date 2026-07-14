@@ -1,59 +1,58 @@
 import heapq
 
 def solution(n, paths, gates, summits):
-    # 각 게이트에서 출발 -> 산봉우리까지 이동
-    # 되돌아올 때는 동일한 경로로 돌아오면 됨
+    INF = 1e9
+    ans = [INF, INF]
     
+    # (출입구 중 1 -> 산봉우리 중 1)의 모든 경로들의 intensity 최소값 구하기
     graph = [[] for i in range(n+1)]
     
     for a, b, c in paths:
         graph[a].append((b, c))
         graph[b].append((a, c))
         
-    INF = 10**15
-    dist = [INF for i in range(n+1)]
-    visited = [False for i in range(n+1)]
-    
-    g_set = set(gates)
-    s_set = set(summits)
-    
+    isGate = [False]*(n+1)
+    for i in gates:
+        isGate[i] = True
+        
+    isSummit = [False]*(n+1)
+    for i in summits:
+        isSummit[i] = True
+        
+    dist = [INF]*(n+1)
     pq = []
     for g in gates:
-        heapq.heappush(pq, (0, g)) # intensity, 시작점
-        dist[g] = 0
-    
+        # 모든 출입구에 대해 거리를 0으로 설정
+        dist[g] = 0 # 해당 출입구가 시작점
+        heapq.heappush(pq, (0, g)) # 거리, 노드
+
     while pq:
-        inten, node = heapq.heappop(pq)
-        
-        if node in s_set:
-            # 산봉우리 도착
+        d, node = heapq.heappop(pq)
+
+        if isSummit[node]:
+            # 산봉우리에 도착했으므로 탐색 종료
             continue
-            
-        if visited[node]:
+        if dist[node] < d:
             continue
-        visited[node] = True
-        
-        for nn, cost in graph[node]:
-            
-            if nn in g_set:
-                # 다른 게이트로는 이동x
+                    
+        for nn, nd in graph[node]:
+            # 현재 노드와 연결된 다음 노드
+            if isGate[nn]:
                 continue
-            
-            new_inten = max(inten, cost) # 해당 경로에서의 intensity를 계산
-                
-            if dist[nn] > new_inten:
-                dist[nn] = new_inten
+                    
+            new_intensity = max(d, nd) # 휴식없이 이동하는 가장 긴 시간 계산
+                    
+            if dist[nn] > new_intensity:
+                dist[nn] = new_intensity
                 heapq.heappush(pq, (dist[nn], nn))
-    
-    # 산봉우리 노드들을 순차적으로 순회하며 ans값 탐색
-    summits.sort()
-    min_inten = INF
-    ans = [0, 0]
-    
+                        
+    # 해당 출입구, 산봉우리 조합에서 나올 수 있는 최소의 intensity
     for s in summits:
-        if min_inten > dist[s]:
-            min_inten = dist[s]
+        if dist[s] < ans[1]:
             ans[0] = s
             ans[1] = dist[s]
-    
+        elif dist[s] == ans[1] and s < ans[0]:
+            ans[0] = s
+            ans[1] = dist[s]
+        
     return ans

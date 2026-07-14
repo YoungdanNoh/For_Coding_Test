@@ -20,6 +20,9 @@ def solution(N, road, K):
     while pq:
         d, n = heapq.heappop(pq)
         
+        if d > dist[n]:
+            continue
+        
         for nn in graph[n]:
             # 현재 노드와 연결된 마을들 탐색
             if dist[nn[0]] > (d + nn[1]):

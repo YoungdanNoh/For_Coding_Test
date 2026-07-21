@@ -11,8 +11,9 @@ def solution(k, room_number):
             nxt[x] = x+1
             return x
 
-        nxt[x] = find(nxt[x])
-        return nxt[x]
+        num = find(nxt[x]) # 배정 가능한 방 번호
+        nxt[x] = num + 1 # 다음에 같은 방 번호 요청이 오면 1개를 건너뛰어야 한다.
+        return num
 
     ans = [0]*len(room_number)
     

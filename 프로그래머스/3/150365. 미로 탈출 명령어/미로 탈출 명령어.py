@@ -41,8 +41,8 @@ def solution(n, m, x, y, r, c, k):
             if ntx < 1 or ntx > n or nty < 1 or nty > m:
                 # 격자를 벗어남
                 continue
-            if route > ans:
-                # 정답보다 더 나은 결과를 만들 수 없음
+            if (route+al) > ans:
+                # 현재 정답보다 더 나은 결과를 만들 수 없음
                 continue
             dfs(ntx, nty, route+al, cnt+1)
     

@@ -1,45 +1,54 @@
 import sys
 
-sys.setrecursionlimit(10000)
-
-route = "z"
+sys.setrecursionlimit(10**6)
+ans = 'z'
 
 def solution(n, m, x, y, r, c, k):
     
-    dx = [1, 0, 0, -1] # 상하좌우
-    dy = [0, -1, 1, 0]
-    dAlpha = ['d', 'l', 'r', 'u']
+    # d, l, r, u
+    d = [('d', 1, 0),
+        ('l', 0, -1),
+        ('r', 0, 1),
+        ('u', -1, 0)]
     
-    def dfs(cx, cy, cr, ck):
-        global route
+    # 현재 x, y 위치, 경로 알파벳, 이동 횟수
+    def dfs(tx, ty, route, cnt):
+        global ans
         
-        if(ck == k and cx == (r-1) and cy == (c-1)):
-            route = cr
+        if tx == r and ty == c and cnt == k:
+            # 도착
+            if ans > route:
+                ans = route
             return
         
-        if(ck >= k):
+        if cnt >= k:
+            # 이동 횟수 초과
             return
         
-        # 현재 위치에서 도착지점까지 k번 움직여서 갈 수 없다면 return
-        tmp = abs(cx - (r-1)) + abs(cy - (c-1))
-        if (k-ck-tmp)%2 == 1:
+        remain = k - cnt # 남은 이동 횟수
+        distance = abs(tx - r) + abs(ty - c) # 목적지까지 최단 거리
+        if remain < distance:
+            # 남은 이동 횟수로 r, c에 도착할 수 없음
+            return
+        if (remain - distance) % 2 == 1:
+            # 최단거리보다 더 움직여야 하는 횟수가 홀수라면, 최종적으로 목적지에 맞춰 도착할 수 없다
             return
         
-        if k < (ck + tmp):
-            return
-        
-        for i in range(4):
-            tx = cx + dx[i]
-            ty = cy + dy[i]
+        for al, dx, dy in d:
+            ntx = tx + dx
+            nty = ty + dy
             
-            if (tx>=0 and tx<n and ty>=0 and ty<m) and cr < route:
-                dfs(tx, ty, cr+dAlpha[i], ck+1)
-                    
-    dfs(x-1, y-1, "", 0)
+            if ntx < 1 or ntx > n or nty < 1 or nty > m:
+                # 격자를 벗어남
+                continue
+            if route > ans:
+                # 정답보다 더 나은 결과를 만들 수 없음
+                continue
+            dfs(ntx, nty, route+al, cnt+1)
     
-    #print(route)
-    if(route == "z"):
-        return "impossible"
+    dfs(x, y, '', 0)
     
+    if ans == 'z':
+        return 'impossible'
     else:
-        return route
+        return ans

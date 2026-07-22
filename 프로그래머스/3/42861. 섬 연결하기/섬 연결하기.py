@@ -1,28 +1,31 @@
 import heapq
 
 def solution(n, costs):
-    graph = [[] for i in range(n)]
+    ans = 0
     
-    for a, b, cost in costs:
-        graph[a].append((b, cost))
-        graph[b].append((a, cost))
+    graph = [[] for i in range(n)]
+    for a, b, c in costs:
+        graph[a].append((b, c))
+        graph[b].append((a, c))
         
     visited = [False]*n
+        
+    # 0번 섬을 시작값으로 설정
     pq = []
-    heapq.heappush(pq, (0, 0)) # 비용, 시작점
-    
-    result = 0
+    heapq.heappush(pq, (0, 0))
     
     while pq:
-        c, n = heapq.heappop(pq)
+        cost, node = heapq.heappop(pq)
         
-        if(visited[n]):
+        if visited[node]:
             continue
-        visited[n] = True
-        result += c
+            
+        ans += cost
+        visited[node] = True
         
-        for nn, nc in graph[n]:
-            if(not visited[nn]):
-                heapq.heappush(pq, (nc, nn))
+        for nn, nc in graph[node]:
+            if visited[nn]:
+                continue
+            heapq.heappush(pq, (nc, nn))
     
-    return result
+    return ans

@@ -4,8 +4,8 @@ def solution(n):
     N = n
 
     v1 = [False]*n # 세로
-    v2 = [False]*(2*n) # 왼쪽 대각선
-    v3 = [False]*(2*n) # 오른쪽 대각선
+    v2 = [False]*(2*n-1) # 왼쪽 대각선
+    v3 = [False]*(2*n-1) # 오른쪽 대각선
     
     def dfs(row):
         global ans
